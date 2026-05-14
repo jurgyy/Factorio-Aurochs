@@ -1,0 +1,12 @@
+{
+  "name": "aurochs",
+  "version": "1.0.0",
+  "title": "Aurochs",
+  "author": "Jurgy",
+  "factorio_version": "2.0",
+  "description": "Introduces work animals known as aurochs",
+  "dependencies": [
+    "base",
+    "animated-trains-lib"
+  ]
+}
