@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "title": "Aurochs",
   "author": "Jurgy",
+  "homepage": "https://github.com/jurgyy/Factorio-Aurochs",
+  "description": "Adds primitive cow-based logistics",
   "factorio_version": "2.0",
-  "description": "Introduces work animals known as aurochs",
   "dependencies": [
     "base",
     "animated-trains-lib"
-  ]
+  ],
+  "quality_required": false,
+  "rail_bridges_required": false,
+  "space_travel_required": false,
+  "spoiling_required": true,
+  "freezing_required": false,
+  "segmented_units_required": false,
+  "expansion_shaders_required": false
 }
