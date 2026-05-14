@@ -10,7 +10,7 @@ local wheatgrass_shadow_spritter = require("graphics/wheatgrass/Shadow")
 
 ---@type data.SimpleEntityPrototype
 local entity_grass = {
-  name = "prairie-grass",
+  name = "wheat-grass",
   type = "simple-entity",
   flags = {"placeable-neutral", "placeable-off-grid"},
   icon = "__aurochs__/graphics/wheatgrass/icon.png",
@@ -25,7 +25,7 @@ local entity_grass = {
     mining_time = 0.5,
     results =
     {
-      {type = "item", name = "steel-plate", amount_min = 6, amount_max = 36}
+      {type = "item", name = "wheat-grass", amount_min = 1, amount_max = 5}
       -- {type = "item", name = "coal", amount = 1, probability = 0.1}
     }
   },
@@ -45,10 +45,10 @@ local entity_grass = {
       center_path = "clamp(path * 2 - 1, 0, 1)",
       resource_spread = "clamp(resource_expression, 0, 1)* random_penalty{x = x, y = y, source = 1, amplitude = 1 /0.40833333333333}",
       resource_expression = "resource_autoplace_all_patches{"..
-        "base_density = 500 * var('control:prairie-grass:size'),"..
-        "base_spots_per_km2 = 20 * var('control:prairie-grass:frequency'),"..
+        "base_density = 500 * var('control:wheat-grass:size'),"..
+        "base_spots_per_km2 = 20 * var('control:wheat-grass:frequency'),"..
         "candidate_spot_count = 20,"..
-        "frequency_multiplier = var('control:prairie-grass:frequency')/20,"..
+        "frequency_multiplier = var('control:wheat-grass:frequency')/20,"..
         "random_spot_size_minimum = 0.1,"..
         "random_spot_size_maximum = 0.4,"..
         "regular_blob_amplitude_multiplier = 0.5,"..
@@ -56,7 +56,7 @@ local entity_grass = {
         "regular_patch_set_index = 4,"..
         "regular_rq_factor = 0.03,"..
         "seed1 = 1006,"..
-        "size_multiplier = var('control:prairie-grass:size') * 1000,"..
+        "size_multiplier = var('control:wheat-grass:size') * 1000,"..
         "has_starting_area_placement = 0,"..
         "starting_blob_amplitude_multiplier = 0.125,"..
         "starting_patch_set_count = default_starting_resource_patch_set_count,"..
@@ -93,9 +93,10 @@ local entity_grass = {
   }
 }
 
+---@type data.AutoplaceControl
 local autoplace_control = {
   type = "autoplace-control",
-  name = "prairie-grass",
+  name = "wheat-grass",
   category = "resource",
   order = "a[doodad]-a[grass]-b[aurochs]"
 }
@@ -103,13 +104,23 @@ local autoplace_control = {
 ---@type data.PlanetPrototypeMapGenSettings
 local mapgen = data.raw.planet.nauvis.map_gen_settings
 
-mapgen.autoplace_controls["prairie-grass"] = {}
+mapgen.autoplace_controls["wheat-grass"] = {}
 
 ---@type { ["decorative"|"entity"|"tile"]: data.AutoplaceSettings }?
 local autoplace = data.raw.planet.nauvis.map_gen_settings.autoplace_settings
 if not autoplace then error("Could not find autoplace settings") end
 
 autoplace.decorative.settings["green-hairy-grass"] = nil
-autoplace.entity.settings["prairie-grass"] = {}
+autoplace.entity.settings["wheat-grass"] = {}
 
-data:extend({entity_grass, autoplace_control})
+---@type data.ItemPrototype
+local item = {
+  type = "item",
+  name = "wheat-grass",
+  icon = "__aurochs__/graphics/wheatgrass/itemIcon.png",
+  subgroup = "grass",
+  order = "a[doodad]-a[grass]-b[aurochs]",
+  stack_size = 100
+}
+
+data:extend({entity_grass, autoplace_control, item})

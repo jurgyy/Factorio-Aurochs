@@ -32,9 +32,8 @@ script.on_init(function()
 end)
 
 local auroch_food = {
-  grass = true,
+  ["wheat-grass"] = true,
   hay = true,
-  ["steel-plate"] = true -- DEBUG
 }
 
 local function create_attack_proxy(surface, position)

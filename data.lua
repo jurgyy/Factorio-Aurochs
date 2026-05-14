@@ -44,12 +44,12 @@ data:extend{{
   }
 }}
 
-require("prototypes/locomotive2")
+require("prototypes/locomotive")
 require("prototypes/cart")
 require("prototypes/rail")
 require("prototypes/trainstop")
 require("prototypes/rail-signal")
-require("prototypes/grass2resource")
+require("prototypes/wheat-grass")
 require("prototypes/aurochs")
 require("prototypes/attack-proxy")
 require("prototypes/technology")
