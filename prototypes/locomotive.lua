@@ -43,14 +43,22 @@ local loco = {
   alert_icon_shift = {0, -0.75},
   drawing_box_vertical_extension = 1,
   collision_box = {{-0.6, -1.2}, {0.6, 1.2}},
-  --collision_mask = -- TODO?
   selection_box = {{-1, -1.5}, {1, 1.5}},
   flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
   icon = "__aurochs__/graphics/loco/BullDraftIcon.png",
   icon_size = 64,
   impact_category = "organic",
   minable = {mining_time = 0.5, result = "aurochs-locomotive"},
-  -- mined_sound TODO?
+  mined_sound = {
+    switch_vibration_data = {
+      filename = "__core__/sound/deconstruct-medium.bnvib",
+      gain = 0.25
+    },
+    variations = {{
+      filename = "__core__/sound/deconstruct-medium.ogg",
+      volume = 0.8
+    }}
+  },
   working_sound = {
     activate_sound = moo_sounds,
     deactivate_sound = moo_sounds,
@@ -90,11 +98,11 @@ local loco = {
   allow_manual_color = false,
   drive_over_tie_trigger = tieTriggerSound,
   drive_over_tie_trigger_minimal_speed = 0.02,
-  pictures = nil, -- TODO
+  pictures = nil, -- Pictures are rendered by Animated Trains Library
   tie_distance = 1.5,
   energy_source = {
     type = "burner",
-    fuel_categories = {"chemical"}, -- TODO food
+    fuel_categories = {"herbivorous"},
     effectivity = 1.3,
     fuel_inventory_size = 5,
     smoke = nil

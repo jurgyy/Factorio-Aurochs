@@ -122,7 +122,9 @@ local item = {
   icon = "__aurochs__/graphics/wheatgrass/itemIcon.png",
   subgroup = "grass",
   order = "a[doodad]-a[grass]-b[aurochs]",
-  stack_size = 100
+  stack_size = 100,
+  fuel_category = "herbivorous",
+  fuel_value = "0.5MJ"
 }
 
 data:extend({entity_grass, autoplace_control, item})
