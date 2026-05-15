@@ -17,7 +17,8 @@ data:extend{{
         spritter_table = require("graphics/loco/BullDraftShadow"),
       }
     },
-    animation_speed_multiplier = 16.5
+    animation_speed_multiplier = 16.5,
+    frames_per_rotation = 16
   }
 }, {
   type = "mod-data",
@@ -38,6 +39,7 @@ data:extend{{
         spritter_table = require("graphics/wagon/Shadow"),
       }
     },
-    animation_speed_multiplier = 6
+    animation_speed_multiplier = 6,
+    frames_per_rotation = 8
   }
 }}
