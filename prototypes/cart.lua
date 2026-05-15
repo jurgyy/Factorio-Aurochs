@@ -49,7 +49,8 @@ local recipe = {
   energy_required = 10,
   ingredients =
   {
-    {name = "wood", amount = 40, type = "item"},
+    {name = "wood", amount = 20, type = "item"},
+    {name = "wooden-chest", amount = 2, type = "item"}
   },
   results = { {name = "aurochs-cart", amount = 1, type = "item"} }
 }
