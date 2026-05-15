@@ -1,7 +1,8 @@
 local smoke_animations = require("__base__/prototypes/entity/smoke-animations")
 
-local moo_sounds = require("sounds/moo")
-local bell_sounds = require("sounds/cowbells")
+local sounds = require("sounds/sounds")
+local moo_sounds = sounds.moo_sounds()
+local bell_sounds = sounds.bell_sounds()
 
 local smoke = smoke_animations.trivial_smoke{
   name = "aurochs-locomotive-smoke",

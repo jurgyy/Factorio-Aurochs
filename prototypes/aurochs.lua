@@ -107,7 +107,7 @@ local wild = {
   working_sound = {
     max_sounds_per_prototype = 2,
     probability = 0.0014,
-    sound = require("prototypes/moo-sound")(1, 1.5, "enemy")
+    sound = require("sounds/sounds").moo_sounds{category = "enemy"}
   },
   autoplace = {
     order = "a[doodad]-a[wild]-b[aurochs]",

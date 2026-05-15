@@ -2,6 +2,7 @@ local grass = data.raw["optimized-decorative"]["green-hairy-grass"]
 if not grass then error("Could not find green-hairy-grass decorative") end
 
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
+local bush_sounds = require("sounds/sounds").bush_sounds()
 
 data.raw["optimized-decorative"]["green-hairy-grass"] = nil
 ---@type SpritterOutput
@@ -22,7 +23,7 @@ local entity_grass = {
   damaged_trigger_effect = decorative_trigger_effects.green_hairy_grass(),
   dying_trigger_effect = decorative_trigger_effects.green_hairy_grass(),
   minable = {
-    mining_time = 0.5,
+    mining_time = 1.5,
     results =
     {
       {type = "item", name = "wheat-grass", amount_min = 1, amount_max = 5}
@@ -31,7 +32,8 @@ local entity_grass = {
   },
   -- map_color = {r = 51, g = 66, b = 29},
   map_color = {r = 0, g = 255, b = 255},
-  --mined_sound = TODO
+  mined_sound = bush_sounds,
+  mining_sound = bush_sounds,
   impact_category = "organic",
   render_layer = "object",
   max_health = 100,
