@@ -29,6 +29,8 @@ local AurochState = {
 script.on_init(function()
   ---@type table<unit_number, AurochData>
   storage.aurochs = {}
+  ---@type table<unit_number, LuaEntity>
+  storage.locomotives = {}
 end)
 
 local auroch_food = {
@@ -249,6 +251,86 @@ function AurochsAI.events.ai_completed_event(event)
     handle_goto_food_completed(auroch_data, event)
   elseif auroch_data.state == AurochState.Eating then
     handle_eating_completed(auroch_data, event)
+  end
+end
+
+local entity_item_map = {
+  ["domesticated-auroch"] = "domesticated-auroch",
+  ["aurochs-locomotive-ATL"] = "aurochs-locomotive"
+}
+
+local item_entity_map = {
+  ["domesticated-auroch"] = "domesticated-auroch",
+  ["aurochs-locomotive"] = "aurochs-locomotive-ATL"
+}
+
+local function set_entity_health(event, entity)
+  local item_name = entity_item_map[entity.name]
+  if not item_name then return end
+  local inventory = event.consumed_items
+  local stack = event.stack
+  if inventory then
+    ---@diagnostic disable-next-line: cast-local-type
+    stack = inventory.find_item_stack(item_name)
+    if not stack then return end
+  elseif stack.name ~= item_name then
+    return
+  end
+  entity.health = entity.max_health * (1 - stack.spoil_percent)
+end
+
+---@param event EventData.on_built_entity|EventData.on_robot_built_entity
+function AurochsAI.events.built_entity(event)
+  local entity = event.entity
+  if not entity or not entity.valid then return end
+
+  set_entity_health(event, entity)
+  if entity.name == "aurochs-locomotive-ATL" then
+    storage.locomotives[entity.unit_number] = entity
+  end
+end
+
+local function set_item_spoil_percentage(inventory, entity)
+  local stack = inventory.find_item_stack(entity_item_map[entity.name])
+  if not stack then return end
+  stack.spoil_percent = 1 - (entity.health / entity.max_health)
+  stack.health = 1
+end
+
+---@param event EventData.on_player_mined_entity
+function AurochsAI.events.mined_entity(event)
+  local entity = event.entity
+  if not entity then return end
+  set_item_spoil_percentage(event.buffer, entity)
+  if entity.name == "aurochs-locomotive-ATL" then
+    storage.locomotives[entity.unit_number] = nil
+  end
+end
+
+---@param event NthTickEventData
+function AurochsAI.events.nth_tick(event)
+  if storage.locomotives == nil then storage.locomotives = {} end -- TODO can be removed after deleting all old saves
+  for unit_number, loco in pairs(storage.locomotives) do
+    if not loco.valid then
+      storage.locomotives[unit_number] = nil
+      goto continue
+    end
+
+    local inventory = loco.get_fuel_inventory()
+    if not inventory then error("Could not get fuel inventory of locomotive " .. unit_number) end
+    if inventory.is_empty() then
+      loco.health = loco.health - loco.max_health * 0.05 -- TODO calculate the exact amount to drain based on the Auroch's spoilage time
+      if loco.health <= 0 then
+        loco.die()
+        storage.locomotives[unit_number] = nil
+      end
+    else 
+      inventory[1].count = inventory[1].count - 1
+      if loco.health < loco.max_health then
+        loco.health = math.min(loco.health + loco.max_health * 0.1, loco.max_health)
+      end
+    end
+    ::continue::
   end
 end
 

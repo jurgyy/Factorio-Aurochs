@@ -3,6 +3,7 @@ script.on_init(function()
   storage.aurochs = {}
 end)
 
+require("control/remote") -- Loads remote interface for the ATL on built event
 local aurochs_ai = require("control/auroch-ai")
 
 script.on_event(defines.events.on_player_dropped_item, aurochs_ai.events.drop_event)

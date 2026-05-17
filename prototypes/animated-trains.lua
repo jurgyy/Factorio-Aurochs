@@ -42,4 +42,15 @@ data:extend{{
     animation_speed_multiplier = 6,
     frames_per_rotation = 8
   }
+}, {
+  type = "mod-data",
+  name = "auroch-loco-entity-built-config",
+  data_type = "atl-entity-built-config",
+  data = {
+    entities = {
+      "aurochs-locomotive",
+    },
+    remote_interface = "aurochs",
+    remote_function = "on_built_locomotive"
+  }
 }}
