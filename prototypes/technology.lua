@@ -36,10 +36,6 @@ local tech = {
       type = "unlock-recipe",
       recipe = "auroch-reproduction"
     },
-    {
-      type = "unlock-recipe",
-      recipe = "feed-auroch"
-    },
   },
   research_trigger = {
     type = "scripted",

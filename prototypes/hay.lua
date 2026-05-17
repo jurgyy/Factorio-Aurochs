@@ -15,7 +15,7 @@ local recipe = {
   ingredients = {
     { name = "wheat-grass", amount = 5, type = "item" },
   },
-  energy_required = 2,
+  energy_required = 20,
   results = {
     { name = "hay", amount = 1, type = "item" }
   }
