@@ -14,5 +14,6 @@ script.on_event(defines.events.on_built_entity, aurochs_ai.events.built_entity, 
 script.on_event(defines.events.on_player_mined_entity, aurochs_ai.events.mined_entity, {
   {filter = "rolling-stock", mode = "and"},
   {filter = "name", name = "aurochs-locomotive-ATL", mode = "and"},
+  {filter = "name", name = "domesticated-auroch", mode = "or"},
 })
 script.on_nth_tick(60, aurochs_ai.events.nth_tick)
