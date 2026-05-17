@@ -12,6 +12,7 @@ local recipe = {
     { name = "domesticated-auroch", amount = 3, type = "item" }
   },
   icon = "__aurochs__/graphics/reproductionIcon.png",
+  allow_productivity = false,
   reset_freshness_on_craft = true,
   result_is_always_fresh = true
 }

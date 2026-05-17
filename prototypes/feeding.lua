@@ -11,11 +11,15 @@ local recipe = {
     { name = "domesticated-auroch", amount = 1, type = "item" }
   },
   reset_freshness_on_craft = true,
+  allow_productivity = false,
   icons = {
     {
-      icon = "__aurochs__/graphics/wild-auroch/BullIcon.png",
-      icon_size = 64,
-      tint = {r = 0.4, g = 0.8, b = 0.4}
+      icon = "__aurochs__/graphics/wild-auroch/headIcon.png",
+    },
+    {
+      icon = "__aurochs__/graphics/hayBaleIcon.png",
+      scale = 0.5,
+      shift = {16, 16}
     }
   },
 }

@@ -125,6 +125,7 @@ local recipe = {
   enabled = false,
   icon = loco.icon,
   energy_required = 10,
+  allow_productivity = false,
   ingredients = {
     {name = "domesticated-auroch", amount = 2, type = "item"},
     {name = "wood", amount = 10, type = "item"}
