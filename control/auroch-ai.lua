@@ -33,10 +33,29 @@ script.on_init(function()
   storage.locomotives = {}
 end)
 
-local auroch_food = {
-  ["wheat-grass"] = true,
-  hay = true,
-}
+---@type table<string, boolean>
+local auroch_food = {}
+---@type {name: string, spoil_ticks: integer?}[] Sorted table where t[i].spoil_ticks <= t[i+1].spoil_ticks but 0 spoil_ticks (no spoilage) are last.
+local food_priority = {}
+for name, prototype in pairs(prototypes.item) do
+  if prototype.fuel_category == "herbivorous" then
+    auroch_food[name] = true
+    local spoil_ticks = prototype.get_spoil_ticks()
+    table.insert(food_priority, {name = name, spoil_ticks = spoil_ticks})
+  end
+end
+
+-- Sort the food priority so that foods that spoil faster are fed to the aurochs first, but non-perishable foods are fed last.
+-- Could be optimized by inserting in the right place, but the number of food items is expected to be very low so this should be fine
+table.sort(food_priority, function(a, b)
+  if a.spoil_ticks == 0 then
+    return false
+  elseif b.spoil_ticks == 0 then
+    return true
+  end
+  return a.spoil_ticks < b.spoil_ticks
+end)
+
 
 local function create_attack_proxy(surface, position)
   local x = position.x or position[1]
@@ -344,7 +363,10 @@ function AurochsAI.events.nth_tick(event)
         end
       end
     else 
-      inventory[1].count = inventory[1].count - 1
+      for _, food_info in pairs(food_priority) do
+        local amount = inventory.remove{name = food_info.name, count = 1}
+        if amount > 0 then break end
+      end
       if loco.health < loco.max_health then
         loco.health = math.min(loco.health + loco.max_health * 0.1, loco.max_health)
       end
