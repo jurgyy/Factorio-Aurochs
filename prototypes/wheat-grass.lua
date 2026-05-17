@@ -123,6 +123,7 @@ local item = {
   subgroup = "grass",
   order = "a[doodad]-a[grass]-b[aurochs]",
   stack_size = 100,
+  spoil_ticks = 60 * 60 * 5,
   fuel_category = "herbivorous",
   fuel_value = "0.5MJ"
 }
