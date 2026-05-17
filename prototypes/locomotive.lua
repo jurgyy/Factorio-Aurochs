@@ -44,7 +44,7 @@ local loco = {
   drawing_box_vertical_extension = 1,
   collision_box = {{-0.6, -1.2}, {0.6, 1.2}},
   selection_box = {{-1, -1.5}, {1, 1.5}},
-  flags = {"placeable-neutral", "player-creation", "placeable-off-grid"},
+  flags = {"placeable-neutral", "player-creation", "placeable-off-grid", "not-repairable", "breaths-air"},
   icon = "__aurochs__/graphics/loco/BullDraftIcon.png",
   icon_size = 64,
   impact_category = "organic",
@@ -116,6 +116,8 @@ item.name = loco.name
 item.place_result = loco.name
 item.icon = loco.icon
 item.stack_size = 5
+item.spoil_ticks = 60 * 60 * 5 -- 5 minutes
+
 
 local recipe = {
   type = "recipe",

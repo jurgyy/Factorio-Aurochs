@@ -4,7 +4,7 @@ local wild = {
   name = "wild-auroch",
   icon = "__aurochs__/graphics/wild-auroch/BullIcon.png",
   -- icon_size = data.raw["unit"]["medium-biter"].icon_size,
-  flags = {"placeable-player", "placeable-enemy", "placeable-off-grid", "not-repairable", "breaths-air"},
+  flags = {"placeable-neutral", "placeable-off-grid", "not-repairable", "breaths-air", "get-by-unit-number"},
   order = "c-auroch-a",
   subgroup = "enemies",
   max_health = 200,
@@ -166,6 +166,7 @@ wild.autoplace = {
 local domesticated = table.deepcopy(wild)
 domesticated.name = "domesticated-auroch"
 domesticated.order = "c-auroch-b"
+domesticated.flags = {"placeable-player", "placeable-off-grid", "not-repairable", "breaths-air", "player-creation"}
 domesticated.minable = {
   mining_time = 1,
   results = {
@@ -181,7 +182,8 @@ local domesticated_item = {
   subgroup = "intermediate-product",
   order = "b-auroch-b",
   place_result = "domesticated-auroch",
-  stack_size = 50
+  stack_size = 50,
+  spoil_ticks = 60 * 60 * 5 -- 5 minutes
 }
 
 local wild_item = {

@@ -27,7 +27,19 @@ local tech = {
     {
       type = "unlock-recipe",
       recipe = "dirt-rail-chain-signal"
-    }
+    },
+    {
+      type = "unlock-recipe",
+      recipe = "hay"
+    },
+    {
+      type = "unlock-recipe",
+      recipe = "auroch-reproduction"
+    },
+    {
+      type = "unlock-recipe",
+      recipe = "feed-auroch"
+    },
   },
   research_trigger = {
     type = "scripted",
