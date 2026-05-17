@@ -37,7 +37,7 @@ local attack_proxy =
   --pollution_to_join_attack = 0,
   distraction_cooldown = 0,
   vision_distance = 0,
-  
+  hidden = true,
   --run_animation = empty_rotated_animation(),
   run_animation =
   {
