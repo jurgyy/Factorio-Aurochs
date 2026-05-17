@@ -323,6 +323,25 @@ function AurochsAI.events.nth_tick(event)
       if loco.health <= 0 then
         loco.die()
         storage.locomotives[unit_number] = nil
+      else
+        rendering.draw_sprite{
+          sprite = "aurochs-hunger-sprite",
+          target = {
+            entity = loco,
+            offset = {0, -0.75}
+          },
+          surface = loco.surface,
+          render_layer = "selection-box",
+          time_to_live = 60, -- TODO create and destroy in this tick event instead
+          x_scale = 0.55,
+          y_scale = 0.55,
+        }
+        local force = loco.force
+        if force then
+          for _, player in pairs(force.players) do
+            player.add_custom_alert(loco, {type = "item", name = "aurochs-hunger-icon"}, {"message.aurochs-hunger-warning"}, true)
+          end
+        end
       end
     else 
       inventory[1].count = inventory[1].count - 1
