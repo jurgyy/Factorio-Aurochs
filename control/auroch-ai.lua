@@ -338,23 +338,11 @@ function AurochsAI.events.nth_tick(event)
     local inventory = loco.get_fuel_inventory()
     if not inventory then error("Could not get fuel inventory of locomotive " .. unit_number) end
     if inventory.is_empty() then
-      loco.health = loco.health - loco.max_health * 0.05 -- TODO calculate the exact amount to drain based on the Auroch's spoilage time
+      loco.health = loco.health - loco.max_health * 0.01 -- TODO calculate the exact amount to drain based on the Auroch's spoilage time
       if loco.health <= 0 then
         loco.die()
         storage.locomotives[unit_number] = nil
       else
-        rendering.draw_sprite{
-          sprite = "aurochs-hunger-sprite",
-          target = {
-            entity = loco,
-            offset = {0, -0.75}
-          },
-          surface = loco.surface,
-          render_layer = "selection-box",
-          time_to_live = 60, -- TODO create and destroy in this tick event instead
-          x_scale = 0.55,
-          y_scale = 0.55,
-        }
         local force = loco.force
         if force then
           for _, player in pairs(force.players) do

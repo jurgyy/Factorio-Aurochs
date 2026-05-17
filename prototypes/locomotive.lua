@@ -105,7 +105,8 @@ local loco = {
     fuel_categories = {"herbivorous"},
     effectivity = 1.3,
     fuel_inventory_size = 5,
-    smoke = nil
+    smoke = nil,
+    burner_usage = "auroch-food"
   },
   max_power = "50kW",
   reversing_power_modifier = 0.7,
