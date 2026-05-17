@@ -5,6 +5,8 @@ local item = {
   subgroup = "intermediate-product",
   order = "a[doodad]-a[grass]-a[hay]",
   stack_size = 200,
+  fuel_category = "herbivorous",
+  fuel_value = "2MJ"
 }
 
 local recipe = {
