@@ -14,7 +14,9 @@ local recipe = {
   icon = "__aurochs__/graphics/reproductionIcon.png",
   allow_productivity = false,
   reset_freshness_on_craft = true,
-  result_is_always_fresh = true
+  result_is_always_fresh = true,
+  subgroup = "auroch-farming",
+  order = "e-[reproduction]"
 }
 
 data:extend({recipe})

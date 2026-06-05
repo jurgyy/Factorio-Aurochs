@@ -1,10 +1,6 @@
-local grass = data.raw["optimized-decorative"]["green-hairy-grass"]
-if not grass then error("Could not find green-hairy-grass decorative") end
-
 local decorative_trigger_effects = require("__base__.prototypes.decorative.decorative-trigger-effects")
 local bush_sounds = require("sounds/sounds").bush_sounds()
 
-data.raw["optimized-decorative"]["green-hairy-grass"] = nil
 ---@type SpritterOutput
 local wheatgrass_spritter = require("graphics/wheatgrass/Grass")
 local wheatgrass_shadow_spritter = require("graphics/wheatgrass/Shadow")
@@ -67,7 +63,6 @@ local entity_grass = {
       "}"
     }
   },
-  -- pictures = grass.pictures
   pictures = {
     sheet = {
       layers = {
@@ -112,7 +107,6 @@ mapgen.autoplace_controls["wheat-grass"] = {}
 local autoplace = data.raw.planet.nauvis.map_gen_settings.autoplace_settings
 if not autoplace then error("Could not find autoplace settings") end
 
-autoplace.decorative.settings["green-hairy-grass"] = nil
 autoplace.entity.settings["wheat-grass"] = {}
 
 ---@type data.ItemPrototype
@@ -120,8 +114,8 @@ local item = {
   type = "item",
   name = "wheat-grass",
   icon = "__aurochs__/graphics/wheatgrass/itemIcon.png",
-  subgroup = "grass",
-  order = "a[doodad]-a[grass]-b[aurochs]",
+  subgroup = "auroch-farming",
+  order = "b-[wheat-grass]",
   stack_size = 100,
   spoil_ticks = 60 * 60 * 5,
   fuel_category = "herbivorous",

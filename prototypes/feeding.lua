@@ -1,6 +1,7 @@
 ---@param food string Food item name
 ---@param amount integer Food amount
-local function create_feeding_recipe(food, amount)
+---@param order string Order in crafting menu
+local function create_feeding_recipe(food, amount, order)
   local item_prototype = data.raw.item[food]
   if not item_prototype then
     error("Food item '" .. food .. "' not found")
@@ -31,6 +32,8 @@ local function create_feeding_recipe(food, amount)
         shift = {16, 16}
       }
     },
+    subgroup = "auroch-farming",
+    order = "d-".. order .."["..food.."]"
   }
 
   data:extend({recipe})
@@ -45,5 +48,5 @@ local function create_feeding_recipe(food, amount)
   })
 end
 
-create_feeding_recipe("hay", 1)
-create_feeding_recipe("wheat-grass", 3)
+create_feeding_recipe("wheat-grass", 3, "a")
+create_feeding_recipe("hay", 1, "b")

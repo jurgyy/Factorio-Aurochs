@@ -2,11 +2,12 @@ local item = {
   type = "item",
   name = "hay",
   icon = "__aurochs__/graphics/hayBaleIcon.png",
-  subgroup = "intermediate-product",
-  order = "a[doodad]-a[grass]-a[hay]",
+  subgroup = "auroch-farming",
+  order = "c[hay]",
   stack_size = 200,
   fuel_category = "herbivorous",
-  fuel_value = "2MJ"
+  fuel_value = "2MJ",
+  
 }
 
 local recipe = {
@@ -20,7 +21,9 @@ local recipe = {
   energy_required = 20,
   results = {
     { name = "hay", amount = 1, type = "item" }
-  }
+  },
+  subgroup = "auroch-farming",
+  order = "c-[hay]",
 }
 
 data:extend({item, recipe})

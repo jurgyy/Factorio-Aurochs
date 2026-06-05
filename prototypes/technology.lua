@@ -36,6 +36,14 @@ local tech = {
       type = "unlock-recipe",
       recipe = "auroch-reproduction"
     },
+    {
+      type = "unlock-recipe",
+      recipe = "wheat-grass"
+    },
+    {
+      type = "unlock-recipe",
+      recipe = "wheat-grass-seed"
+    },
   },
   research_trigger = {
     type = "scripted",

@@ -165,7 +165,6 @@ wild.autoplace = {
 
 local domesticated = table.deepcopy(wild)
 domesticated.name = "domesticated-auroch"
-domesticated.order = "c-auroch-b"
 domesticated.flags = {"placeable-player", "placeable-off-grid", "not-repairable", "breaths-air", "player-creation"}
 domesticated.minable = {
   mining_time = 1,
@@ -174,13 +173,15 @@ domesticated.minable = {
   },
   autoplace = nil
 }
+domesticated.order = "a"
+domesticated.subgroup = "auroch-farming"
 
 local domesticated_item = {
   type = "item",
   name = "domesticated-auroch",
   icon = "__aurochs__/graphics/wild-auroch/BullIcon.png",
-  subgroup = "intermediate-product",
-  order = "b-auroch-b",
+  subgroup = domesticated.subgroup,
+  order = domesticated.order,
   place_result = "domesticated-auroch",
   stack_size = 50,
   spoil_ticks = 60 * 60 * 5 -- 5 minutes
