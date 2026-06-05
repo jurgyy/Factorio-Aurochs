@@ -65,7 +65,7 @@ local loco = {
     sound = moo_sounds,
     probability = 0
   },
-  corpse = nil, --TODO
+  corpse = "aurochs-locomotive-corpse",
   max_health = 400,
   braking_power = "20W", -- TODO tweak?
   ---@diagnostic disable-next-line: assign-type-mismatch
@@ -146,4 +146,78 @@ loco.damaged_trigger_effect = {
 --   sound = moo_sounds
 -- }
 
-data:extend({loco, item, smoke, recipe})
+local corpse_spritter = require("graphics/loco/BullDraftDeath")
+local corpse_shadow_spritter = require("graphics/loco/BullDraftDeathShadow")
+---@type data.CorpsePrototype
+local corpse = {
+  type = "corpse",
+  name = "aurochs-locomotive-corpse",
+  icon = loco.icon,
+  icon_size = 64,
+  animation = {
+    animation_speed = 2,
+    layers = {
+      {
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/loco/BullDraftDeath", corpse_spritter),
+        width = corpse_spritter.width,
+        height = corpse_spritter.height,
+        frame_count = 7,
+        line_length = corpse_spritter.line_length,
+        lines_per_file = corpse_shadow_spritter.lines_per_file,
+        scale = corpse_spritter.scale,
+        shift = corpse_spritter.shift,
+        -- flags = {"corpse-decay"}
+      },
+      {
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/loco/BullDraftDeathShadow", corpse_shadow_spritter),
+        width = corpse_shadow_spritter.width,
+        height = corpse_shadow_spritter.height,
+        frame_count = 7,
+        line_length = corpse_shadow_spritter.line_length,
+        lines_per_file = corpse_shadow_spritter.lines_per_file,
+        scale = corpse_shadow_spritter.scale,
+        shift = corpse_shadow_spritter.shift,
+        draw_as_shadow = true
+      }
+    }
+  },
+  --decay_animation = {}, -- TODO
+  decay_frame_transition_duration = 360,
+  direction_shuffle = nil, -- TODO?
+  dying_speed = 0.014,
+  final_render_layer = "lower-object-above-shadow",
+  flags = {"placeable-neutral", "placeable-off-grid", "building-direction-16-way", "not-on-map"},
+  ground_patch = {
+    sheet = {
+      allow_forced_downscale = true,
+      filename = "__base__/graphics/entity/biter/blood-puddle-var-main.png",
+      flags = {"low-object"},
+      height = 134,
+      line_length = 4,
+      scale = 0.65,
+      shift = {
+        -0.015625,
+        -0.015625
+      },
+      tint = {r = 0.6, g = 0, b = 0},
+      variation_count = 4,
+      width = 164
+    }
+  },
+  ground_patch_fade_in_delay = 50,
+  ground_patch_fade_in_speed = 0.002,
+  ground_patch_fade_out_duration = 1200,
+  ground_patch_fade_out_start = 3000,
+  ground_patch_render_layer = "decals",
+  hidden_in_factoriopedia = true,
+  order = "a[corpse]-b[aurochs]-a[loco]",
+  selectable_in_game = false,
+  selection_box = loco.selection_box,
+  subgroup = "corpses",
+  time_before_removed = 54000,
+  use_decay_layer = false
+}
+
+data:extend({loco, item, smoke, recipe, corpse})

@@ -59,7 +59,7 @@ local wild = {
   collision_box = {{-0.6, -0.6}, {0.6, 0.6}},
   selection_box = {{-0.65, -0.95}, {0.65, 1.45}},
   sticker_box = {{-0.4, -0.6}, {0.4, 1.0}},
-  -- corpse = {}, TODO
+  corpse = "aurochs-corpse",
   -- dying_sound = {}, TODO
   movement_speed = 0.05,
   distance_per_frame = 0.165,
@@ -196,4 +196,107 @@ local wild_item = {
   stack_size = 50
 }
 
-data:extend({ wild, domesticated, domesticated_item, wild_item })
+local corpse_spritter = require("graphics/wild-auroch/BullDeath")
+local corpse_shadow_spritter = require("graphics/wild-auroch/BullDeathShadow")
+local deacy_spritter = require("graphics/wild-auroch/BullDecay")
+local decay_shadow_spritter = require("graphics/wild-auroch/BullDecayShadow")
+---@type data.CorpsePrototype
+local corpse = {
+  type = "corpse",
+  name = "aurochs-corpse",
+  icon = wild.icon,
+  icon_size = 64,
+  animation = {
+    animation_speed = 2,
+    layers = {
+      {
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/wild-auroch/BullDeath", corpse_spritter),
+        width = corpse_spritter.width,
+        height = corpse_spritter.height,
+        frame_count = 7,
+        line_length = corpse_spritter.line_length,
+        lines_per_file = corpse_shadow_spritter.lines_per_file,
+        scale = corpse_spritter.scale,
+        shift = corpse_spritter.shift,
+        -- flags = {"corpse-decay"}
+      },
+      {
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/wild-auroch/BullDeathShadow", corpse_shadow_spritter),
+        width = corpse_shadow_spritter.width,
+        height = corpse_shadow_spritter.height,
+        frame_count = 7,
+        line_length = corpse_shadow_spritter.line_length,
+        lines_per_file = corpse_shadow_spritter.lines_per_file,
+        scale = corpse_shadow_spritter.scale,
+        shift = corpse_shadow_spritter.shift,
+        draw_as_shadow = true
+      }
+    }
+  },
+  decay_animation = {
+    layers = {
+      {
+        allow_forced_downscale = true,
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/wild-auroch/BullDecay", deacy_spritter),
+        width = deacy_spritter.width,
+        height = deacy_spritter.height,
+        frame_count = 7,
+        line_length = deacy_spritter.line_length,
+        lines_per_file = deacy_spritter.lines_per_file,
+        scale = deacy_spritter.scale,
+        shift = deacy_spritter.shift
+      },
+      {
+        direction_count = 32,
+        filenames = util.filenames_from_spritter("__aurochs__/graphics/wild-auroch/BullDecayShadow", decay_shadow_spritter),
+        width = decay_shadow_spritter.width,
+        height = decay_shadow_spritter.height,
+        frame_count = 7,
+        line_length = decay_shadow_spritter.line_length,
+        lines_per_file = decay_shadow_spritter.lines_per_file,
+        scale = decay_shadow_spritter.scale,
+        shift = decay_shadow_spritter.shift,
+        draw_as_shadow = true
+      }
+    }
+  },
+  decay_frame_transition_duration = 360,
+  direction_shuffle = nil, -- TODO?
+  dying_speed = 0.014,
+  final_render_layer = "lower-object-above-shadow",
+  flags = {"placeable-neutral", "placeable-off-grid", "building-direction-16-way", "not-on-map"},
+  ground_patch = {
+    sheet = {
+      allow_forced_downscale = true,
+      filename = "__base__/graphics/entity/biter/blood-puddle-var-main.png",
+      flags = {"low-object"},
+      height = 134,
+      line_length = 4,
+      scale = 0.65,
+      shift = {
+        -0.015625,
+        -0.015625
+      },
+      tint = {r = 0.5, g = 0, b = 0},
+      variation_count = 4,
+      width = 164
+    }
+  },
+  ground_patch_fade_in_delay = 50,
+  ground_patch_fade_in_speed = 0.002,
+  ground_patch_fade_out_duration = 1200,
+  ground_patch_fade_out_start = 3000,
+  ground_patch_render_layer = "decals",
+  hidden_in_factoriopedia = true,
+  order = "a[corpse]-b[aurochs]-a[free]",
+  selectable_in_game = false,
+  selection_box = wild.selection_box,
+  subgroup = "corpses",
+  time_before_removed = 54000,
+  use_decay_layer = false
+}
+
+data:extend({ wild, domesticated, domesticated_item, wild_item, corpse })
