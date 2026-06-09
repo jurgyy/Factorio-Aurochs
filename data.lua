@@ -19,3 +19,5 @@ require("prototypes/hunger-icon")
 require("prototypes/food-burner-usage")
 require("prototypes/seeds")
 require("prototypes/subgroups")
+
+require("prototypes/tips-and-tricks/tips-and-tricks")
