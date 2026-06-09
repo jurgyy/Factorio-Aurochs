@@ -248,8 +248,10 @@ local function handle_eating_completed(auroch_data, event)
   local force = auroch_data.target_food_force
 
   auroch_data.last_eaten = event.tick
-  auroch_data.domestication[force] = (auroch_data.domestication[force] or 0) + 1
-  if auroch_data.domestication[force] >= 5 then
+  local domestication_level = (auroch_data.domestication[force] or 0) + 1
+  auroch_data.domestication[force] = domestication_level
+  local scale = 0.3 + (domestication_level * 0.1)
+  if domestication_level >= 5 then
     handle_domestication(auroch_data)
     return
   end
