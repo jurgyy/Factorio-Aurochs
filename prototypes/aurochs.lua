@@ -5,7 +5,7 @@ local wild = {
   icon = "__aurochs__/graphics/wild-auroch/BullIcon.png",
   -- icon_size = data.raw["unit"]["medium-biter"].icon_size,
   flags = {"placeable-neutral", "placeable-off-grid", "not-repairable", "breaths-air", "get-by-unit-number"},
-  order = "c-auroch-a",
+  order = "aba-auroch-a",
   subgroup = "enemies",
   max_health = 200,
   attack_parameters = {
@@ -124,6 +124,22 @@ local wild = {
     entity_name = "red-blood-explosion",
     type = "create-entity",
     offset_deviation = {{-0.5, -0.5}, {0.5, 0.5}},
+  },
+  factoriopedia_simulation = {
+    init = "    game.simulation.camera_zoom = 1.8 \r\n"
+    .. "    game.simulation.camera_position = {0, 0}\r\n"
+    .. "    game.surfaces[1].build_checkerboard{{-40, -40}, {40, 40}}\r\n"
+    .. "    enemy = game.surfaces[1].create_entity{name = \"wild-auroch\", position = {0, 0}}\r\n"
+    .. "\r\n"
+    .. "    step_0 = function()\r\n"
+    .. "      game.simulation.camera_zoom = 1.8\r\n"
+    .. "      game.simulation.camera_position = {enemy.position.x, enemy.position.y - 0.5}\r\n"
+    .. "      script.on_nth_tick(1, function()\r\n"
+    .. "          step_0()\r\n"
+    .. "      end)\r\n"
+    .. "    end\r\n"
+    .. "\r\n"
+    .. "step_0()"
   }
 }
 
