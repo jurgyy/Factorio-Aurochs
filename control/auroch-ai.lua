@@ -16,7 +16,7 @@ local AurochsAI = {
 ---@field last_eaten int? The tick at which the auroch last ate food, used for hunger cooldown
 ---@field domestication table<force_id, integer> A measure of how domesticated the auroch is. After reaching a certain threshold, the auroch stops being wild and becomes minable.
 
-local hunger_timeout = 1 * 60 -- ticks after which an auroch can be fed again
+local hunger_timeout = 5 * 60 -- ticks after which an auroch can be fed again
 
 ---@enum AurochState
 local AurochState = {
@@ -254,6 +254,17 @@ local function handle_eating_completed(auroch_data, event)
   if domestication_level >= 5 then
     handle_domestication(auroch_data)
     return
+  else
+    rendering.draw_sprite{
+      sprite = "aurochs-stomach-full",
+      target = {entity = auroch, offset = {0, -1}},
+      surface = auroch.surface,
+      time_to_live = hunger_timeout,
+      render_layer = "entity-info-icon",
+      only_in_alt_mode = true,
+      x_scale = 0.5,
+      y_scale = 0.5
+    }
   end
   game.print("Auroch " .. auroch_data.unit_number .. " has domestication level: " .. auroch_data.domestication[force], {skip = defines.print_skip.never, sound = defines.print_sound.never})
   set_idle(auroch_data)
